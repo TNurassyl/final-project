@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: manufacturers
+      - name: vehicle_types
+models:
+  - name: stg_manufacturers
+    columns:
+      - name: mfr_id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_vehicle_types
+    columns:
+      - name: mfr_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_manufacturers')
+              field: mfr_id
